@@ -19,7 +19,7 @@ app.use(express.json());
 
 app.use(requestMiddleware);
 
-//api뒤에 시작되는 주소는 routes/posts.js에 있는 Router 미들웨워를 통해 처리
+//api뒤에 시작되는 주소는 routes/posts.js에 있는 Router 미들웨어를 통해 처리
 app.use("/api", [postRouter, commentsRouter]);
 
 //get이라는 http 메소드로 지정 경로로 요청이 들어왔다면 실행이 됨.
