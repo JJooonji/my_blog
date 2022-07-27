@@ -4,12 +4,6 @@ const commentSchema = new mongoose.Schema({
     postId: {
         type: Number,
         required: true,
-        // uniapu: true,
-    },
-    commentId: {
-        type: Number,
-        required: true,
-        unique: true,
     },
     nickName: {
         type: String,
@@ -21,7 +15,7 @@ const commentSchema = new mongoose.Schema({
         required: true,
     },
     commentCreatedAt: {
-        type: Date,
+        type: Date
     }
 });
 
