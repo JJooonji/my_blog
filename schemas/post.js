@@ -25,7 +25,7 @@ const postSchema = new mongoose.Schema({
         required: true,
     },
     createdAt: {
-        type: Date,
+        type: Date
     }
 });
 

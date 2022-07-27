@@ -1,6 +1,7 @@
 const express = require("express");
 const Posts = require("../schemas/post")
 const router = express.Router();
+const moment = require("moment");
 
 
 router.get("/", (req, res) => {
@@ -29,27 +30,25 @@ router.get("/posts/:postId", async (req, res) => {
 
 //게시글 생성 API
 router.post("/posts", async(req, res) => {
-    const { postId, user, password, title, posting, createdAt } = req.body;
+    const { postId, user, password, title, posting } = req.body;
 
-    // const posts = await Posts.find({ postId: Number(postId)})
-
-    // if(posts.length){
-    //     return res.status(400).json({ success: false, errorMessage:"이미 있는 데이터입니다."})
-    // }
-    const createdPost = await Posts.create({ postId, user, password, title, posting, createdAt });
+    const createdPost = await Posts.create({ 
+        postId, user, password, title, posting, 
+        createdAt : moment().format("YYYY-MM-DD HH:mm:ss")
+    });
 
     res.json({ posts: createdPost })
 });
 
-//게시글 수정 => 비밀번호 체크 넣기
+//게시글 수정 => 비밀번호 체크만 넣으면 ok
 router.put("/posts/:postId", async(req, res) => {
-    const { postId } = req.params    
+    const { postId } = req.params;    
     const { title } = req.body;
     const { posting } = req.body;    
 
     const posts = await Posts.find({ postId : Number( postId ) });
-    // if(posts.password != password) {
-    //     res.status(400).json({success: false, errorMessage: "비밀번호 불일치"})
+    // if(posts.password !== password) {
+    //     return res.status(400).json({success: false, errorMessage: "비밀번호 불일치!"})
     // } else {
         await Posts.updateOne({ postsId: Number(postId) }, {$set: { title, posting }})  
     // }
