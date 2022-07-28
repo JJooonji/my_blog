@@ -23,9 +23,9 @@ app.use(requestMiddleware);
 app.use("/", [postRouter, commentsRouter]);
 
 //get이라는 http 메소드로 지정 경로로 요청이 들어왔다면 실행이 됨.
-app.get("/", (req, res) => {
-    res.send("Hello Wolrd")
-});
+// app.get("/", (req, res) => {
+//     res.send("Hello Wolrd")
+// });
 
 //서버를 해당 포트로 켜겠다는 것(listen)->제대로 켜졌다면 두번째의 함수가 실행됨.
 app.listen(port, () => {
