@@ -4,7 +4,7 @@ const router = express.Router();
 const moment = require("moment");
 
 
-//목록 조회 API =>next?
+//목록 조회 API
 router.get("/", async (req, res) => {
     const { createdAt } = req.query
     
