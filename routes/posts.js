@@ -4,9 +4,9 @@ const router = express.Router();
 const moment = require("moment");
 
 
-router.get("/", (req, res) => {
-    res.send("this is root page")
-});
+// router.get("/", (req, res) => {
+//     res.send("this is root page")
+// });
 
 //목록 조회 API =>next?
 router.get("/posts", async (req, res) => {
