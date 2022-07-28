@@ -38,7 +38,7 @@ router.post("/comments/:postId", async(req, res) => {
 });
 
 //댓글 수정 
-router.put("/comments/:commentId", async (req, res) => {
+router.put("/comments/:commentId", async (req, res) => { //commentId부분에 디비 문자열 다 넣기
     const { commentId } = req.params;
     const { commentPosting } = req.body;
 
@@ -56,7 +56,7 @@ router.put("/comments/:commentId", async (req, res) => {
 
 
 //댓글 삭제
-router.delete("/comments/:commentId", async (req, res) => {
+router.delete("/comments/:commentId", async (req, res) => { //commentId부분에 디비 문자열 다 넣기
     const { commentId } = req.params;
     
     const existComment = await Comments.find({ _id : commentId });
