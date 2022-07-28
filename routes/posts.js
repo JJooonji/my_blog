@@ -21,9 +21,8 @@ router.get("/posts", async (req, res) => {
 router.get("/posts/:postId", async (req, res) => {
     const { postId } =  req.params;
 
-    // const mysort = {createdAt: -1}//내림차순 어떡하냐구우
 
-    const [ posts ] = await Posts.find({ postId: Number(postId) });//find메소드 검색해보기
+    const [ posts ] = await Posts.find({ postId: Number(postId) });
 
     res.json({ posts })
 });
@@ -40,32 +39,35 @@ router.post("/posts", async(req, res) => {
     res.json({ posts: createdPost })
 });
 
-//게시글 수정 => 비밀번호 체크만 넣으면 ok
+//게시글 수정 
 router.put("/posts/:postId", async(req, res) => {
     const { postId } = req.params;    
-    const { title } = req.body;
-    const { posting } = req.body;    
+    const { title, posting, password } = req.body;
+    
+    const [posts] = await Posts.find({ postId : Number( postId ) }); //posts에 대괄호를 넣어서 그 안의 중괄호로 접근
 
-    const posts = await Posts.find({ postId : Number( postId ) });
-    // if(posts.password !== password) {
-    //     return res.status(400).json({success: false, errorMessage: "비밀번호 불일치!"})
-    // } else {
+    if(posts.password !== password) {
+        return res.status(400).json({success: false, errorMessage: "비밀번호 불일치!"})
+    } else {
         await Posts.updateOne({ postsId: Number(postId) }, {$set: { title, posting }})  
-    // }
-
+    }
+    
     res.json({ success: true })
 });
 
 
-//게시글 삭제 => 비밀번호 체크만 넣으면 ok
+//게시글 삭제 
 router.delete("/posts/:postId", async (req, res) => {
     const { postId } = req.params //파라미터로 담아오는 모든 값은 문자열 
+    const { password } = req.body;
 
-    const existsPost = await Posts.find({ postId : Number(postId)});
-    if(existsPost.length) {
-        await Posts.deleteOne({ postId: Number(postId) });
-    }
-
+    const [existsPost] = await Posts.find({ postId : Number(postId)}); //posts에 대괄호를 넣어서 그 안의 중괄호로 접근
+        if(existsPost.password !== password) {
+            return res.status(400).json({ success: false, errorMessage: "비밀번호 불일치!" })
+        } else {
+            await Posts.deleteOne({ postId: Number(postId) });
+        }
+        
     res.json({ success: true })
 });
 
